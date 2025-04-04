@@ -12,7 +12,7 @@ import type { NonPayableOverrides } from "../common.ts";
 import type {
   PokemonCardManager,
   PokemonCardManagerInterface,
-} from  "../../assets/PokemonCardManager_mapping.sol/PokemonCardManager.ts";
+} from  "../PokemonCardManager_mapping.sol/PokemonCardManager.ts";
 
 const _abi = [
   {

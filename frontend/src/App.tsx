@@ -17,47 +17,47 @@ function App() {
   ) => {
     try {
       console.log('createPokemonCard method is being called...');
+      const contractAddress = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0'; 
       
-      // Cambia l'indirizzo del contratto con quello corretto che hai ottenuto dopo il deploy
-      const contractAddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'; // Usa il tuo contratto distribuito
-
+      // Connessione al contratto e invio della transazione
       const provider = new ethers.JsonRpcProvider('http://localhost:8545');
       
-      // Crea il wallet con il private key per firmare le transazioni
-      const signer = new Wallet('0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e', provider);
-      
-      // Connessione al contratto
-      const pokemonCardManager = PokemonCardManager__factory.connect(contractAddress, signer);
-      
-      // Chiamata al metodo del contratto
-      const tx = await pokemonCardManager.createPokemonCard(name, pokemonType, rarity, ownerAddress);
-      console.log('Transaction sent:', tx);
-      
-      // Aspetta che la transazione venga confermata
-      await tx.wait();
-      console.log('Transaction confirmed');
-      
-      // Dopo aver creato la carta, recupera le informazioni della carta
-      await getCardInfo();
-      console.log('Ending creation...');
+      // Non risolvere l'indirizzo ENS, usa direttamente l'indirizzo
+    const signer = new Wallet('0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e', provider);
+    const pokemonCardManager = PokemonCardManager__factory.connect(contractAddress, signer);
+    
+    // Chiamata per creare una carta
+    const tx = await pokemonCardManager.createPokemonCard(name, pokemonType, rarity, ownerAddress);
+    console.log('Transaction sent:', tx);
+    
+    // Aspetta che la transazione venga confermata
+    const receipt = await tx.wait();
+    console.log('Transaction confirmed:', receipt);
+    
+    // Dopo aver creato la carta, ottieni le informazioni
+    await getCardInfo();
     } catch (error) {
       console.error('Error during creating Pokemon card:', error);
     }
   };
+  
 
   const getCardInfo = async () => {
     try {
       // Usa il contratto con l'indirizzo corretto
-      const contractAddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'; // Usa il tuo contratto distribuito
+      const contractAddress = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0'; // Usa il tuo contratto distribuito
       const provider = new ethers.JsonRpcProvider('http://localhost:8545');
       
       // Connessione al contratto
       const pokemonCardManager = PokemonCardManager__factory.connect(contractAddress, provider);
       
       // Ottieni informazioni su una carta Pokémon, ad esempio con ID 0
-      const cardId = 0; // ID della carta Pokémon che vuoi visualizzare
+      const cardId = 1; // ID della carta Pokémon che vuoi visualizzare
       const card = await pokemonCardManager.getPokemonCardById(cardId);
       
+      console.log('Card info retrieved:', card); // Aggiungi un log per vedere i dettagli della carta
+  
+      // Aggiorna lo stato con i dati della carta
       setCardInfo(card);
       setContractAddress(contractAddress);
       setCount(Number(card.level)); // Puoi usare count per visualizzare il livello della carta
@@ -65,6 +65,7 @@ function App() {
       console.error('Error during getting card info:', error);
     }
   };
+  
 
   useEffect(() => {
     getCardInfo(); // Richiama la funzione per ottenere le informazioni della carta all'avvio
@@ -98,7 +99,7 @@ function App() {
         <hr />
         <button
           onClick={() =>
-            createPokemonCard('Pikachu', 2, 1, '0x5FbDB2315678afecb367f032d93F642f64180aa3')
+            createPokemonCard('Pikachu', 2, 1, '0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e')
           }
         >
           Create Pokemon Card
