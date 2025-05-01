@@ -9,49 +9,31 @@ import {
   HardhatEthersHelpers as HardhatEthersHelpersBase,
 } from "@nomicfoundation/hardhat-ethers/types";
 
-import * as Contracts from "./PokemonCardManager_mapping.sol";
+import * as Contracts from ".";
 
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
-      name: "Lock",
+      name: "TimeBank",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Lock__factory>;
-    getContractFactory(
-      name: "SimpleContract",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.SimpleContract__factory>;
+    ): Promise<Contracts.TimeBank__factory>;
 
     getContractAt(
-      name: "Lock",
+      name: "TimeBank",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.Lock>;
-    getContractAt(
-      name: "SimpleContract",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.SimpleContract>;
+    ): Promise<Contracts.TimeBank>;
 
     deployContract(
-      name: "Lock",
+      name: "TimeBank",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Lock>;
-    deployContract(
-      name: "SimpleContract",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.SimpleContract>;
+    ): Promise<Contracts.TimeBank>;
 
     deployContract(
-      name: "Lock",
+      name: "TimeBank",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Lock>;
-    deployContract(
-      name: "SimpleContract",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.SimpleContract>;
+    ): Promise<Contracts.TimeBank>;
 
     // default types
     getContractFactory(
