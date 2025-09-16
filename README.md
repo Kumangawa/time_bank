@@ -8,7 +8,7 @@
 
 ```
 cd existing_repo
-git remote add origin https://gitlab-edu.supsi.ch/dti-isin/giuliano.gremlich/opzione-blockchain-engineering/24-25/progetti-studenti/saporito.git
+git remote add origin https://github.com/Kumangawa/time_bank
 git branch -M main
 git push -uf origin main
 ```
