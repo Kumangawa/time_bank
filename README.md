@@ -8,7 +8,7 @@
 
 ```
 cd existing_repo
-git remote add origin https://github.com/Kumangawa/time_bank
+git remote add origin https://github.com/Kumangawa/time_bank.git
 git branch -M main
 git push -uf origin main
 ```
